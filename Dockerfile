@@ -17,9 +17,8 @@ RUN yarn build
 FROM node:14-alpine
 ENV NODE_ENV=production
 WORKDIR /app
-COPY --from=build /build/dist ./
 COPY --from=build /build/public ./public
-COPY --from=build /build/package.json ./
+COPY --from=build /build/package.json /build/yarn.lock /build/dist ./
 COPY --from=build /build/.next ./.next
 RUN yarn install --production=true
 
